@@ -5,7 +5,7 @@ A C++ implementation of the SEIR model (Susceptible, Exposed, Infected, Recovere
 ## Project Overview
 This project compares two distinct models: a deterministic ODE model solved with the Forward Euler method, and a stochastic, agent-based Monte Carlo simulation on a periodic lattice. The simulation engines for both models are implemented in C++ and, through the use of pybind11, Python is used for analysis and visualisation
 
-**[View My Experimental Findings](https://datastudio.google.com/u/0/reporting/e2ae6fe0-ee44-4414-9cac-730268780c6e/page/quJtF)**
+**[View My Experimental Findings](https://drive.google.com/file/d/16QFR0962qGyqNGi_RslJRaU5ySu5T3Fz/view?usp=sharing)**
 
 ## Repository Architecture
 
