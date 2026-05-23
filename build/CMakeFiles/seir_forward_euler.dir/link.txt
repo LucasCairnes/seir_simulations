@@ -1,0 +1,1 @@
+/usr/bin/c++  -arch arm64 -bundle -Wl,-headerpad_max_install_names -Xlinker -undefined -Xlinker dynamic_lookup -flto -o /Users/sparelaptop4/Documents/uni_work/coding_coursework/assessment2/seir_forward_euler.cpython-313-darwin.so CMakeFiles/seir_forward_euler.dir/forward_euler/seir_forward_euler.cpp.o

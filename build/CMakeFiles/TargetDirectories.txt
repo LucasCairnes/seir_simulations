@@ -1,0 +1,4 @@
+/Users/sparelaptop4/Documents/uni_work/coding_coursework/assessment2/build/CMakeFiles/seir_forward_euler.dir
+/Users/sparelaptop4/Documents/uni_work/coding_coursework/assessment2/build/CMakeFiles/seir_monte_carlo.dir
+/Users/sparelaptop4/Documents/uni_work/coding_coursework/assessment2/build/CMakeFiles/edit_cache.dir
+/Users/sparelaptop4/Documents/uni_work/coding_coursework/assessment2/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,1 @@
+/usr/bin/c++  -arch arm64 -bundle -Wl,-headerpad_max_install_names -Xlinker -undefined -Xlinker dynamic_lookup -flto -o seir_monte_carlo.cpython-313-darwin.so CMakeFiles/seir_monte_carlo.dir/monte_carlo/seir_monte_carlo.cpp.o
