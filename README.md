@@ -1,8 +1,11 @@
-# A C++ implementation of the SEIR model
+# 🦠 C++ SEIR Simulations
 
-Lucas Cairnes, do24707
+Monte carlo and forward euler simulations of the SEIR infection model written in C++ and visualised with Python.
 
-## Description
+**[Paper of my Experimental Findings](https://datastudio.google.com/u/0/reporting/e2ae6fe0-ee44-4414-9cac-730268780c6e/page/quJtF)**
+
+
+## Project Overview
 
 This project implements the SEIR model (Susceptible, Exposed, Infected, Recovered) using C++. The two implementations are a forward Euler numerical integration model and an agent-based Monte Carlo model. These models are wrapped with Pybind11, imported to a Jupyter notebook, and then visualised for analysis.
 
