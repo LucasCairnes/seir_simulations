@@ -1,62 +1,45 @@
 # 🦠 C++ SEIR Simulations
 
-Monte carlo and forward euler simulations of the SEIR infection model written in C++ and visualised with Python.
-
-**[Paper of my Experimental Findings](https://datastudio.google.com/u/0/reporting/e2ae6fe0-ee44-4414-9cac-730268780c6e/page/quJtF)**
-
+A C++ implementation of the SEIR model (Susceptible, Exposed, Infected, Recovered). 
 
 ## Project Overview
+This project compares two distinct models: a deterministic ODE model solved with the Forward Euler method, and a stochastic, agent-based Monte Carlo simulation on a periodic lattice. The simulation engines for both models are implemented in C++ and, through the use of pybind11, Python is used for analysis and visualisation
 
-This project implements the SEIR model (Susceptible, Exposed, Infected, Recovered) using C++. The two implementations are a forward Euler numerical integration model and an agent-based Monte Carlo model. These models are wrapped with Pybind11, imported to a Jupyter notebook, and then visualised for analysis.
+**[View My Experimental Findings](https://datastudio.google.com/u/0/reporting/e2ae6fe0-ee44-4414-9cac-730268780c6e/page/quJtF)**
 
-## Getting Started
+## Repository Architecture
 
-### Dependencies
+**ODE Model** `seir_forward_euler.cpp`
+* Solves the SEIR differential equations numerically (Forward Euler)
+* Takes initial parameters, sequentially calculates instantaneous rates, and then updates the SEIR value
+* Outputs the data to .xlsx files to be analysed by the visualisation script
 
-* C++11
-* Python 3.13
-* Python dependencies in `requirements.txt`
+**Agent Model** `seir_monte_carlo.cpp`
+* A discrete model on a periodic lattice which models interactions between individual agents
+* Agents are represented by structs and the overall system is encapsulated by the System class
+* During each simulation step, agents attempt to random walk
+* The disease propagates probabilistically based on neighbouring agents 
+* The program outputs .xlsx files for the SEIR values and for snapshots of the lattice
 
-### Installation
+**Visualisation** `visualise_seir.ipynb`
+* Imports the pybind11 objects and triggers the simulations with the chosen parameters
+* Plots the SEIR trajectories with matplotlib and the lattices with FuncAnimation
 
-* Clone the repo with `git clone https://github.com/LucasCairnes/SEIR_models`
-* Compile `seir_forward_euler.cpp` and `seir_monte_carlo.cpp` with `make`
-* Create a Python 3.13 environment
-* Install Python dependencies with `pip install -r requirements.txt`
+## Setup
 
-### Executing program
+Clone the repository:
+* `git clone https://github.com/LucasCairnes/seir_simulations`
+* `cd seir_simulations`
+Setup a Python environment and install the dependencies:
+* `conda create -n "seir_simulation" python=3.13`
+* `conda activate seir_simulation`
+* `pip install -r requirements.txt`
+Compile the C++ code:
+* `cmake -S . -B build`
+* `cmake --build build`
 
-* Open `visualise_seir.ipynb`
-* Execute the cells sequentially to run the simulations
-* After simulating, view the raw data in `f_euler_seir_data.csv`, `mc_seir_data.csv`, and `mc_lattice_data.csv`
+## Execution
 
-## Code structure
-<img src="flowchart.png" alt="flowchart" width="500"/>
-
-### `seir_forward_euler.cpp`
-
-* A deterministic initial conditions model
-* Program takes the SEIR parameters, and begins an integration loop
-* Each step, the program calculates the current derivatives of the SEIR values, updates the current SEIR compartments and then saves them to memory
-* Once the loop is complete, these stored values are written to a CSV
-* The program is wrapped with Pybind11 so the function can be used in Python.
-
-### `seir_monte_carlo.cpp`
-
-* Agent-based stochastic model
-* The program takes the initial parameters, allocates discrete agents to each compartment, creates a periodic lattice of given length, and then randomly populates the lattice with agents
-* These discrete agents are structs with their current position and state
-* Agents are encapsulated by a main System class which orchestrates the simulation
-* The simulation loop then begins. The system attempts to move each agent randomly to a neighbouring tile, succeeding if its empty.
-* After movement step, probability for each agent progressing to the next compartment is compared to an RNG, if value RNG value is smaller, the agent progresses.
-* After step, current SEIR values and states of lattice stored in memory
-* Once sim is complete, SEIR values and lattice snapshots are exported to CSVs.
-* System class is wrapped with Pybind11 along with main execution function.
-
-### `visualise_seir.ipynb`
-
-* Pybind11 objects imported
-* CSVs converted to Pandas Dataframes and then plotted
-* Lattice snapshots animated with FuncAnimation
-
-
+* Launch `visualise_seir.ipynb`
+* Input your chosen values into the parameters cell
+* Execute the cells sequentially
