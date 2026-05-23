@@ -28,13 +28,18 @@ This project compares two distinct models: a deterministic ODE model solved with
 ## Setup
 
 Clone the repository:
+
 * `git clone https://github.com/LucasCairnes/seir_simulations`
 * `cd seir_simulations`
+
 Setup a Python environment and install the dependencies:
+
 * `conda create -n "seir_simulation" python=3.13`
 * `conda activate seir_simulation`
 * `pip install -r requirements.txt`
+
 Compile the C++ code:
+
 * `cmake -S . -B build`
 * `cmake --build build`
 
