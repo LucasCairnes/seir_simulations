@@ -5,23 +5,24 @@
 #include <cmath>
 #include <pybind11/pybind11.h>
 
-namespace py = pybind11; // To condense the pybind args
+namespace py = pybind11; 
 
-float ds_dt(float i, float s, float beta) {
+double ds_dt(double i, double s, double beta) {
     return -beta * i * s;
 }
-float de_dt(float i, float s, float beta, float sigma, float e) {
+double de_dt(double i, double s, double beta, double sigma, double e) {
     return beta * i * s - sigma * e;
 }
-float di_dt(float i, float sigma, float e, float gamma) {
+double di_dt(double i, double sigma, double e, double gamma) {
     return sigma * e - gamma * i;
 }
-float dr_dt(float i, float gamma) {
+double dr_dt(double i, double gamma) {
     return gamma * i;
-} // The seir differential equations as easily callable functions
+} 
 
-int seir_forward_euler(float beta, float sigma, float gamma, float s_0, float e_0, float i_0, float r_0, float step, float t_final, const std::string& seir_filename) {
-    float t = 0.0, s = s_0, e = e_0, i = i_0, r = r_0;
+int seir_forward_euler(double beta, double sigma, double gamma, double s_0, double e_0, double i_0, double r_0, double step, double t_final, const std::string& seir_filename) {
+    double t = 0.0, s = s_0, e = e_0, i = i_0, r = r_0;
+    
     if (std::abs(s_0 + e_0 + i_0 + r_0 - 1.0) > 0.001) {
         throw std::invalid_argument("SEIR values must add to 1.0");
     }
@@ -29,19 +30,19 @@ int seir_forward_euler(float beta, float sigma, float gamma, float s_0, float e_
         throw std::invalid_argument("Step must be smaller than t_final.");
     }
 
-    std::vector<float> s_values, e_values, i_values, r_values, t_values;
+    std::vector<double> s_values, e_values, i_values, r_values, t_values;
 
-    s_values.emplace_back(s);  // Inputting initial values 
+    s_values.emplace_back(s);  
     e_values.emplace_back(e);
     i_values.emplace_back(i);   
     r_values.emplace_back(r);
     t_values.emplace_back(t);
 
     while (t < t_final) {
-        float ds = ds_dt(i, s, beta);
-        float de = de_dt(i, s, beta, sigma, e);
-        float di = di_dt(i, sigma, e, gamma);
-        float dr = dr_dt(i, gamma); // Ensuring to pass the seir variables in before updating them
+        double ds = ds_dt(i, s, beta);
+        double de = de_dt(i, s, beta, sigma, e);
+        double di = di_dt(i, sigma, e, gamma);
+        double dr = dr_dt(i, gamma); 
 
         s += ds * step;
         e += de * step;
@@ -57,11 +58,10 @@ int seir_forward_euler(float beta, float sigma, float gamma, float s_0, float e_
     }
 
     std::ofstream seir_out(seir_filename);
-
     seir_out << "time,susceptible,exposed,infected,recovered\n";
 
-    for (size_t i = 0; i < t_values.size(); i++) {
-        seir_out << t_values[i] << "," << s_values[i] << "," << e_values[i] << "," << i_values[i] << "," << r_values[i] << "\n";
+    for (size_t j = 0; j < t_values.size(); j++) {
+        seir_out << t_values[j] << "," << s_values[j] << "," << e_values[j] << "," << i_values[j] << "," << r_values[j] << "\n";
     }
     seir_out.close();
 
@@ -70,7 +70,7 @@ int seir_forward_euler(float beta, float sigma, float gamma, float s_0, float e_
 
 PYBIND11_MODULE(seir_forward_euler, m) {
     m.doc() = "A module for solving SEIR ODEs.";
-    m.def("forward_euler", &seir_forward_euler, "A function to solve the SEIR ODEs with the forward Euler method.", // Brief descriptions of the module and function
+    m.def("forward_euler", &seir_forward_euler, "A function to solve the SEIR ODEs with the forward Euler method.", 
         py::arg("beta"),
         py::arg("sigma"),
         py::arg("gamma"),
@@ -80,6 +80,6 @@ PYBIND11_MODULE(seir_forward_euler, m) {
         py::arg("r_0"),
         py::arg("step"),
         py::arg("t_final"),
-        py::arg("seir_filename") // Defining pybind args to allow args to be easily using in python, e.g. beta = 1.0
+        py::arg("seir_filename") 
     );
 }
