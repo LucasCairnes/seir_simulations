@@ -3,3 +3,4 @@ matplotlib
 pybind11
 ipython
 ipykernel
+cmake

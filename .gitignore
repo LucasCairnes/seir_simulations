@@ -2,4 +2,8 @@
 *.svg
 *.pdf
 *.so
+*.o
+.DS_STORE
+simulation_data
 saved_plots
+
