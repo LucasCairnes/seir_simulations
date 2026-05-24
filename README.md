@@ -1,11 +1,19 @@
 # 🦠 C++ SEIR Simulations
 
+![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=flat&logo=c%2B%2B&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![CMake](https://img.shields.io/badge/CMake-064F8C?style=flat&logo=cmake&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=flat&logo=jupyter&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-11557c?style=flat&logo=matplotlib&logoColor=white)
+
 A C++ implementation of the SEIR model (Susceptible, Exposed, Infected, Recovered). 
 
 ## Project Overview
 This project compares two distinct models: a deterministic ODE model solved with the Forward Euler method, and a stochastic, agent-based Monte Carlo simulation on a periodic lattice. The simulation engines for both models are implemented in C++ and, through the use of pybind11, Python is used for analysis and visualisation
 
 **[View My Experimental Findings](https://drive.google.com/file/d/16QFR0962qGyqNGi_RslJRaU5ySu5T3Fz/view?usp=sharing)**
+
+---
 
 ## Repository Architecture
 
@@ -25,6 +33,8 @@ This project compares two distinct models: a deterministic ODE model solved with
 * Imports the pybind11 objects and triggers the simulations with the chosen parameters
 * Plots the SEIR trajectories with matplotlib and the lattices with FuncAnimation
 
+---
+
 ## Setup
 
 Clone the repository:
@@ -42,6 +52,8 @@ Compile the C++ code:
 
 * `cmake -S . -B build`
 * `cmake --build build`
+
+---
 
 ## Execution
 
